@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
            PropertySeeder::class,
            ViewingSeeder::class,
            OfferSeeder::class,
+           PropertyPhotoSeeder::class,
        ]);
     }
 }
