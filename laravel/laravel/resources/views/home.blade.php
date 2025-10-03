@@ -15,7 +15,7 @@
             <!-- Search Form -->
             <form action="{{ route('properties.index') }}" method="GET"
                   class="bg-white rounded-lg shadow-lg p-6 w-full max-w-3xl flex flex-wrap gap-4">
-
+                @csrf
                 <input type="text" name="location" placeholder="City or Address"
                        class="flex-1 p-3 border rounded-lg text-gray-500 placeholder-gray-500">
 

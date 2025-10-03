@@ -22,7 +22,7 @@ class Property extends Model
 
     public function agent() { return $this->belongsTo(Agent::class); }
     public function region() { return $this->belongsTo(Region::class); }
-    public function type() { return $this->belongsTo(PropertyType::class, 'type_id'); }
+    public function type() { return $this->belongsTo(PropertyType::class, 'property_type_id'); }
     public function viewings() { return $this->hasMany(Viewing::class); }
     public function offers() { return $this->hasMany(Offer::class); }
     public function notes() { return $this->hasMany(Note::class); }

@@ -21,7 +21,7 @@ class PropertyController extends Controller
 
         // Filter by property type
         if ($request->filled('type')) {
-            $query->where('type_id', $request->type);
+            $query->where('property_type_id', $request->type);
         }
 
         // Filter by price range
@@ -34,7 +34,8 @@ class PropertyController extends Controller
 
         $properties = $query->orderBy('created_at', 'desc')->get();
 
-        return view('properties.index', compact('properties'));
+        $types = PropertyType::all();
+        return view('properties.index', compact('properties', 'types'));
     }
 
     public function home() {
