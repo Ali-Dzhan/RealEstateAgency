@@ -15,7 +15,7 @@
                        value="{{ request('location') }}"
                        class="flex-1 p-3 border rounded-lg text-black placeholder-gray-400">
 
-                <select name="type" class="p-3 border rounded-lg text-black bg-white">
+                <select name="type" class="border rounded-lg text-black bg-white">
                     <option value="" disabled selected class="text-gray-500">Property Type</option>
                     @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ request('type') == $type->id ? 'selected' : '' }}>
