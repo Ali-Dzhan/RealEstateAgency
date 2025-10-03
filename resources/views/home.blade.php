@@ -19,7 +19,7 @@
                 <input type="text" name="location" placeholder="City or Address"
                        class="flex-1 p-3 border rounded-lg text-gray-500 placeholder-gray-500">
 
-                <select name="type" class="p-3 border rounded-lg text-black bg-white">
+                <select name="type" class="border rounded-lg text-black bg-white">
                     <option value="" disabled selected class="text-gray-500">Property Type</option>
                     @foreach($types as $type)
                         <option value="{{ $type->id }}" class="text-black">{{ $type->name }}</option>
