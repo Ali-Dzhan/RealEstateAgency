@@ -15,11 +15,11 @@ class PropertyPhotoSeeder extends Seeder
     public function run(): void
     {
         $property_photos = [
-            ['property_id' => 1, 'path' => 'laravel/laravel/public/images/apartment.png'],
-            ['property_id' => 2, 'path' => 'laravel/laravel/public/images/house.png'],
-            ['property_id' => 3, 'path' => 'laravel/laravel/public/images/maisonette.jpg'],
-            ['property_id' => 4, 'path' => 'laravel/laravel/public/images/attic.jpg'],
-            ['property_id' => 5, 'path' => 'laravel/laravel/public/images/land.jpg'],
+            ['property_id' => 1, 'path' => 'images/apartment.png'],
+            ['property_id' => 2, 'path' => 'images/house.png'],
+            ['property_id' => 3, 'path' => 'images/maisonette.jpg'],
+            ['property_id' => 4, 'path' => 'images/attic.jpg'],
+            ['property_id' => 5, 'path' => 'images/land.jpg'],
         ];
 
         foreach ($property_photos as $property_photo) {
