@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Agent;
+use App\Models\Client;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Show the registration form
      */
     public function create(): View
     {
@@ -23,28 +25,69 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Handle registration
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        // Base rules
+        $rules = [
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+            'role'     => ['required', 'in:agent,client'],
+        ];
 
+        // Role-specific rules
+        if ($request->role === 'agent') {
+            $rules = array_merge($rules, [
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name'  => ['required', 'string', 'max:255'],
+                'email'      => ['nullable', 'email', 'unique:agents,email'],
+                'phone'      => ['nullable', 'string'],
+            ]);
+        }
+
+        if ($request->role === 'client') {
+            $rules = array_merge($rules, [
+                'name'  => ['required', 'string', 'max:255'],
+                'email' => ['nullable', 'email', 'unique:clients,email'],
+                'phone' => ['nullable', 'string'],
+            ]);
+        }
+
+        // Validate
+        $validated = $request->validate($rules);
+
+        // Create user
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'username' => $validated['username'],
+            'password' => Hash::make($validated['password']),
+            'role'     => $validated['role'],
         ]);
 
-        event(new Registered($user));
+        // Create role-specific profile
+        if ($user->role === 'agent') {
+            Agent::create([
+                'user_id'    => $user->id,
+                'first_name' => $validated['first_name'],
+                'last_name'  => $validated['last_name'],
+                'phone'      => $validated['phone'] ?? null,
+                'email'      => $validated['email'] ?? null,
+            ]);
+        }
 
+        if ($user->role === 'client') {
+            Client::create([
+                'user_id' => $user->id,
+                'name'    => $validated['name'],
+                'phone'   => $validated['phone'] ?? null,
+                'email'   => $validated['email'] ?? null,
+            ]);
+        }
+
+        // Fire registered event + log in user
+        event(new Registered($user));
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('home');
     }
 }
