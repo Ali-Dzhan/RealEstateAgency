@@ -36,7 +36,7 @@ class NewPasswordController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = \App\Models\User::where('username', $request->username)->first();
+        $user = User::where('username', $request->username)->first();
 
         if (! $user) {
             return back()->withErrors(['username' => 'No user found with that username.']);

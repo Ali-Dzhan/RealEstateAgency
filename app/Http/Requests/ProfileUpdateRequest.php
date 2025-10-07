@@ -15,16 +15,36 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
+        $rules = [
+            'username' => [
                 'required',
                 'string',
-                'lowercase',
+                'max:255',
+                Rule::unique(User::class)->ignore($this->user()->id),
+            ],
+            'email' => [
+                'nullable',
+                'string',
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
         ];
+
+        if ($this->user()->role === 'agent') {
+            $rules = array_merge($rules, [
+                'first_name' => ['nullable', 'string', 'max:255'],
+                'last_name' => ['nullable', 'string', 'max:255'],
+                'phone' => ['nullable', 'string', 'max:20'],
+            ]);
+        }
+
+        if ($this->user()->role === 'client') {
+            $rules = array_merge($rules, [
+                'phone' => ['nullable', 'string', 'max:20'],
+            ]);
+        }
+
+        return $rules;
     }
 }
