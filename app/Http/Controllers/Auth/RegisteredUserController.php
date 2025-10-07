@@ -17,7 +17,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Show the registration form
+     * Show the registration form.
      */
     public function create(): View
     {
@@ -25,41 +25,43 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle registration
+     * Handle registration.
      */
     public function store(Request $request): RedirectResponse
     {
-        // Base rules
+        // Base validation for all users
         $rules = [
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role'     => ['required', 'in:agent,client'],
         ];
 
-        // Role-specific rules
+        // Role-specific validation
         if ($request->role === 'agent') {
             $rules = array_merge($rules, [
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name'  => ['required', 'string', 'max:255'],
-                'email'      => ['nullable', 'email', 'unique:agents,email'],
-                'phone'      => ['nullable', 'string'],
+                'first_name'  => ['required', 'string', 'max:255'],
+                'last_name'   => ['required', 'string', 'max:255'],
+                'agent_email' => ['nullable', 'email', 'unique:agents,email'],
+                'agent_phone' => ['nullable', 'string'],
             ]);
-        }
-
-        if ($request->role === 'client') {
+        } elseif ($request->role === 'client') {
             $rules = array_merge($rules, [
-                'name'  => ['required', 'string', 'max:255'],
-                'email' => ['nullable', 'email', 'unique:clients,email'],
-                'phone' => ['nullable', 'string'],
+                'name'         => ['required', 'string', 'max:255'],
+                'client_email' => ['nullable', 'email', 'unique:clients,email'],
+                'client_phone' => ['nullable', 'string'],
             ]);
         }
 
-        // Validate
+        // Validate the request
         $validated = $request->validate($rules);
 
-        // Create user
+        // Determine email for users table
+        $email = $validated['role'] === 'agent' ? ($validated['agent_email'] ?? null) : ($validated['client_email'] ?? null);
+
+        // Create the user
         $user = User::create([
             'username' => $validated['username'],
+            'email'    => $email,
             'password' => Hash::make($validated['password']),
             'role'     => $validated['role'],
         ]);
@@ -70,21 +72,19 @@ class RegisteredUserController extends Controller
                 'user_id'    => $user->id,
                 'first_name' => $validated['first_name'],
                 'last_name'  => $validated['last_name'],
-                'phone'      => $validated['phone'] ?? null,
-                'email'      => $validated['email'] ?? null,
+                'email'      => $validated['agent_email'] ?? null,
+                'phone'      => $validated['agent_phone'] ?? null,
             ]);
-        }
-
-        if ($user->role === 'client') {
+        } elseif ($user->role === 'client') {
             Client::create([
                 'user_id' => $user->id,
                 'name'    => $validated['name'],
-                'phone'   => $validated['phone'] ?? null,
-                'email'   => $validated['email'] ?? null,
+                'email'   => $validated['client_email'] ?? null,
+                'phone'   => $validated['client_phone'] ?? null,
             ]);
         }
 
-        // Fire registered event + log in user
+        // Fire registered event and log in the user
         event(new Registered($user));
         Auth::login($user);
 
