@@ -9,10 +9,12 @@
              hover:border-blue-600 transition-all duration-300">Properties</a>
 
             @auth
-                <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('agents.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Agents</a>
-                <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
+                    <a href="{{ route('clients.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Clients</a>
+                @endif
                 <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Viewings</a>
                 <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
@@ -23,7 +25,7 @@
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="relative pb-1.5 border-b-4 border-transparent
-                     hover:border-blue-600 transition-all duration-300">Logout</button>
+                     hover:border-blue-600 transition-all duration-300 font-extrabold">Logout</button>
                 </form>
             @else
                 <a href="{{ route('login') }}" class="relative pb-1.5 border-b-4 border-transparent
