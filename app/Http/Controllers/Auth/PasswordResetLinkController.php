@@ -27,23 +27,23 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'username' => 'required|string',
+            'login' => 'required|string',
         ]);
-
-        // Find the user by username
-        $user = User::where('username', $request->username)->first();
+        $login = $request->input('login');
+        $user = filter_var($login, FILTER_VALIDATE_EMAIL)
+            ? User::where('email', $login)->first()
+            : User::where('username', $login)->first();
 
         if (! $user) {
-            return back()->withErrors(['username' => 'No user found with that username.']);
+            return back()->withErrors(['username' => 'No user found with that username or email.']);
         }
 
-        // Create password reset token manually
         $status = Password::sendResetLink(
             ['email' => $user->email ?? 'no-reply@example.com'] // Dummy email
         );
 
         return $status === Password::RESET_LINK_SENT
             ? back()->with('status', __($status))
-            : back()->withErrors(['username' => __($status)]);
+            : back()->withErrors(['login' => __($status)]);
     }
 }
