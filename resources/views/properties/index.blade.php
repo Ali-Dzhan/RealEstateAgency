@@ -7,6 +7,18 @@
             <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center">All Properties</h1>
             <p class="text-gray-600 text-center mb-8">Browse all available properties and find your dream home.</p>
 
+            <div class="flex justify-between items-center mb-6">
+                @auth
+                    <h1 class="text-3xl md:text-4xl font-bold">Properties</h1>
+                    @if(in_array(auth()->user()->role, ['agent', 'admin']))
+                        <a href="{{ route('properties.create') }}"
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+                            Add Property +
+                        </a>
+                    @endif
+                @endauth
+            </div>
+
             <!-- Search / Filter Form -->
             <form action="{{ route('properties.index') }}" method="GET"
                   class="bg-white rounded-lg shadow-lg p-6 flex flex-wrap gap-4 justify-center">
@@ -48,28 +60,64 @@
             @else
                 <div class="grid md:grid-cols-3 gap-8">
                     @foreach($properties as $property)
-                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition transform">
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition transform flex flex-col h-full">
                             <img src="{{ asset($property->photos->first()->path ?? 'images/default.png') }}"
                                  alt="Property"
                                  class="w-full h-48 object-cover">
-                            <div class="p-6">
+                            <div class="p-6 flex flex-col flex-1">
                                 <h3 class="text-xl font-semibold mb-2">{{ $property->address }}</h3>
                                 <p class="text-gray-600 mb-1">Type: {{ $property->type->name }}</p>
                                 <p class="text-gray-600 mb-1">Region: {{ $property->region->name }}</p>
                                 <p class="text-gray-600 mb-1">Agent: {{ $property->agent->first_name }} {{ $property->agent->last_name }}</p>
                                 <p class="text-lg font-bold text-blue-600 mb-2">{{ number_format($property->price, 0) }} €</p>
                                 <p class="text-gray-500 text-sm mb-4">{{ $property->area }} m² — {{ $property->rooms }} rooms — {{ ucfirst($property->status) }}</p>
+
                                 <a href="{{ route('properties.show', $property->id) }}"
-                                   class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                   class="mt-auto inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-center transition">
                                     View Details
                                 </a>
                             </div>
                         </div>
                     @endforeach
                 </div>
+                @if ($properties->hasPages())
+                    <div class="mt-12 flex justify-center">
+                        <nav class="inline-flex rounded-md shadow-sm">
+                            {{-- Previous Page Link --}}
+                            @if ($properties->onFirstPage())
+                                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-l-md cursor-not-allowed">
+                    &laquo; Prev
+                </span>
+                            @else
+                                <a href="{{ $properties->previousPageUrl() }}"
+                                   class="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-l-md transition">
+                                    &laquo; Prev
+                                </a>
+                            @endif
 
-                <!-- Pagination (if using paginate instead of get) -->
-                {{-- {{ $properties->links() }} --}}
+                            {{-- Pagination Elements --}}
+                            @foreach ($properties->getUrlRange(1, $properties->lastPage()) as $page => $url)
+                                @if ($page == $properties->currentPage())
+                                    <span class="px-4 py-2 bg-blue-700 text-white">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $url }}" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 transition">{{ $page }}</a>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($properties->hasMorePages())
+                                <a href="{{ $properties->nextPageUrl() }}"
+                                   class="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-r-md transition">
+                                    Next &raquo;
+                                </a>
+                            @else
+                                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-r-md cursor-not-allowed">
+                    Next &raquo;
+                </span>
+                            @endif
+                        </nav>
+                    </div>
+                @endif
             @endif
         </div>
     </section>
