@@ -20,6 +20,39 @@
                 @endif
             </div>
 
+            <form action="{{ route('viewings.store') }}" method="POST" class="max-w-md mx-auto mt-8 p-4 bg-white rounded-lg shadow">
+                @csrf
+                <h2 class="text-xl font-semibold mb-4">Schedule a Viewing</h2>
+
+                <input type="hidden" name="property_id" value="{{ $property->id ?? 1 }}"> {{-- Replace with real property ID --}}
+
+                <div class="mb-4">
+                    <label for="scheduled_on" class="block text-gray-700 font-medium mb-1">Select Date & Time:</label>
+                    <input type="datetime-local" name="scheduled_on" id="scheduled_on"
+                           class="w-full border rounded-lg p-2" required>
+                </div>
+
+                @error('scheduled_on')
+                <p class="text-red-500 text-sm mb-2">{{ $message }}</p>
+                @enderror
+
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Book Viewing
+                </button>
+
+                @if (session('success'))
+                    <p class="mt-3 text-green-600">{{ session('success') }}</p>
+                @endif
+
+                @if ($errors->any())
+                    <ul class="mt-3 text-red-600 list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </form>
+
             <!-- Property Info & Actions -->
             <div class="p-8 md:flex md:justify-between md:items-start gap-8">
                 <!-- Details Column -->

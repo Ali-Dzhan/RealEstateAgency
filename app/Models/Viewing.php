@@ -14,10 +14,40 @@ class Viewing extends Model
         'agent_id',
         'client_id',
         'scheduled_on',
-        'result',
+        'status',
+        'client_review',
+        'rating',
+        'agent_notes',
     ];
 
-    public function property() { return $this->belongsTo(Property::class); }
-    public function agent() { return $this->belongsTo(Agent::class); }
-    public function client() { return $this->belongsTo(Client::class); }
+    /**
+     * Relationships
+     */
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * Accessors & Helpers
+     */
+    public function isCompleted(): bool
+    {
+        return $this->status === 'completed';
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === 'pending';
+    }
 }

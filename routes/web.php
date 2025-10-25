@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ViewingController;
 use Illuminate\Support\Facades\Route;
 
 // Authenticated routes
@@ -35,6 +36,7 @@ Route::middleware('web')->group(function () {
     Route::get('/', [PropertyController::class, 'home'])->name('home');
     Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
     Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
+    Route::post('/viewings', [ViewingController::class, 'store'])->name('viewings.store');
 });
 
 require __DIR__ . '/auth.php';

@@ -15,9 +15,43 @@ class Offer extends Model
         'client_id',
         'signed_on',
         'price',
+        'status',
+        'notes',
     ];
 
-    public function property() { return $this->belongsTo(Property::class); }
-    public function agent() { return $this->belongsTo(Agent::class); }
-    public function client() { return $this->belongsTo(Client::class); }
+    /**
+     * Relationships
+     */
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * Accessors & Helpers
+     */
+    public function isAccepted(): bool
+    {
+        return $this->status === 'accepted';
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === 'pending';
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status === 'rejected';
+    }
 }
