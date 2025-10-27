@@ -46,5 +46,8 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-8">
+            {{ $clients->links() }}
+        </div>
     </section>
 @endsection

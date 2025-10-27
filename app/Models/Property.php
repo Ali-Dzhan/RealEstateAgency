@@ -20,6 +20,12 @@ class Property extends Model
         'status',
     ];
 
+    public static function find($property_id)
+    {
+        return self::with(['agent', 'region', 'type', 'photos'])
+            ->where('id', $property_id)
+            ->first();
+    }
     public function agent() { return $this->belongsTo(Agent::class); }
     public function region() { return $this->belongsTo(Region::class); }
     public function type() { return $this->belongsTo(PropertyType::class, 'property_type_id'); }

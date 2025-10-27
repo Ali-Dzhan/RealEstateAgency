@@ -4,9 +4,8 @@
     <!-- Page Header -->
     <section class="py-12 px-6 md:px-12 bg-gray-100">
         <div class="max-w-7xl mx-auto">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center">All Properties</h1>
-            <p class="text-gray-600 text-center mb-8">Browse all available properties and find your dream home.</p>
-
+{{--            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center">All Properties</h1>--}}
+{{--            <p class="text-gray-600 text-center mb-8">Browse all available properties and find your dream home.</p>--}}
             <div class="flex justify-between items-center mb-6">
                 @auth
                     <h1 class="text-3xl md:text-4xl font-bold">Properties</h1>

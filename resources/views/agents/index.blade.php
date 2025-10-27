@@ -48,5 +48,8 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-8">
+            {{ $agents->links() }}
+        </div>
     </section>
 @endsection

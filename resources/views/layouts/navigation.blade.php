@@ -15,7 +15,7 @@
                     <a href="{{ route('clients.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Clients</a>
                 @endif
-                <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
+                <a href="{{ route('viewings.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Viewings</a>
                 <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Offers</a>
