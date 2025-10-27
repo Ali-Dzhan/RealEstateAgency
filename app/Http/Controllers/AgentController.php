@@ -9,7 +9,7 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $agents = Agent::with('user')->get();
+        $agents = Agent::with('user')->paginate(5);
         return view('agents.index', compact('agents'));
     }
 

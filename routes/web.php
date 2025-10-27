@@ -29,6 +29,16 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Viewings
+    Route::get('/viewings', [ViewingController::class, 'index'])->name('viewings.index');
+    Route::post('/viewings', [ViewingController::class, 'store'])->name('viewings.store');
+    Route::patch('/viewings/{viewing}', [ViewingController::class, 'update'])->name('viewings.update');
+    Route::patch('/viewings/{viewing}/cancel', [ViewingController::class, 'cancel'])->name('viewings.cancel');
+    Route::get('/viewings/{viewing}/review', [ViewingController::class, 'review'])->name('viewings.review');
+    Route::middleware(['auth', 'isAgentOrAdmin'])->group(function () {
+        Route::get('/viewings/{viewing}/edit', [ViewingController::class, 'edit'])->name('viewings.edit');
+    });
 });
 
 // Public routes
@@ -36,7 +46,6 @@ Route::middleware('web')->group(function () {
     Route::get('/', [PropertyController::class, 'home'])->name('home');
     Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
     Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
-    Route::post('/viewings', [ViewingController::class, 'store'])->name('viewings.store');
 });
 
 require __DIR__ . '/auth.php';

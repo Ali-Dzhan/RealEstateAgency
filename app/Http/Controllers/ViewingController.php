@@ -16,6 +16,8 @@ class ViewingController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $request->validate([
             'property_id' => 'required|exists:properties,id',
             'scheduled_on' => 'required|date|after:now',
@@ -24,26 +26,26 @@ class ViewingController extends Controller
         $property = Property::find($request->property_id);
         $agentId = $property->agent_id;
 
-        $requestedTime = Carbon::parse(request('scheduled_on'));
+        $requestedTime = Carbon::parse($request->scheduled_on);
+        $start = $requestedTime->copy()->subHours(3);
+        $end = $requestedTime->copy()->addHours(3);
 
         $existing = Viewing::where('agent_id', $agentId)
-            ->whereBetween('scheduled_on', [
-                $requestedTime->copy()->addHours(3),
-                $requestedTime->copy()->addHours(3)])
+            ->whereBetween('scheduled_on', [$start, $end])
             ->exists();
 
         if ($existing) {
             return redirect()->back()->withErrors([
                 'scheduled_on' => 'The agent is already booked within 3 hours of this time.
-                 Please choose another hour.',
+                 Please choose another time.',
             ]);
         }
 
         Viewing::create([
             'property_id' => $property->id,
             'agent_id' => $agentId,
-            'client_id' => Auth::user()->client->id,
-            'scheduled_on' => $request->scheduled_on,
+            'client_id' => $user->client->id,
+            'scheduled_on' => $requestedTime,
             'status' => 'pending',
         ]);
 
@@ -74,11 +76,15 @@ class ViewingController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role === 'agent') {
+        if ($user->role === 'admin') {
+            $viewings = Viewing::with(['property', 'agent', 'client'])
+                ->latest()
+                ->paginate(5);
+        } elseif ($user->role === 'agent') {
             $viewings = Viewing::where('agent_id', $user->agent->id)
                 ->with(['property', 'client'])
                 ->latest()
-                ->paginate(10);
+                ->paginate(5);
         } else {
             $viewings = Viewing::where('client_id', $user->client->id)
                 ->with(['property', 'agent'])
@@ -87,5 +93,42 @@ class ViewingController extends Controller
         }
 
         return view('viewings.index', compact('viewings'));
+    }
+
+    public function cancel(Viewing $viewing)
+    {
+        $user = auth()->user();
+
+        if ($user->role === 'client' && $viewing->client_id === $user->client->id) {
+            $viewing->update(['status' => 'cancelled']);
+            return back()->with('success', 'Viewing cancelled successfully.');
+        }
+
+        if ($user->role === 'agent' && $viewing->agent_id === $user->agent->id) {
+            $viewing->update(['status' => 'cancelled']);
+            return back()->with('success', 'Viewing cancelled successfully.');
+        }
+
+        abort(403, 'Unauthorized action.');
+    }
+
+    public function review(Viewing $viewing)
+    {
+        return view('viewings.review', compact('viewing'));
+    }
+
+    public function edit(Viewing $viewing)
+    {
+        $user = auth()->user();
+
+        if ($user->role !== 'agent' && $user->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        if ($user->role === 'agent' && $viewing->agent_id !== $user->agent->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('viewings.edit', compact('viewing'));
     }
 }
