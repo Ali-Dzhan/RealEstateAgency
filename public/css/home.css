@@ -1,0 +1,243 @@
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    color: #333;
+    background-color: #fafafa;
+}
+.container-home {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* LANDING SECTION */
+.landing {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.landing-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') center/cover no-repeat;
+    filter: brightness(50%);
+    z-index: -1;
+}
+
+.landing-content {
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.landing-message h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.landing-message p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+/* SEARCH BAR */
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.search input[type="text"] {
+    flex: 1;
+    height: 50px;
+    border: none;
+    padding: 0 15px;
+    font-size: 1rem;
+    border-radius: 4px 0 0 4px;
+    color: #333;
+}
+
+.search button {
+    height: 50px;
+    background-color: #00a884;
+    border: none;
+    color: white;
+    font-weight: 500;
+    padding: 0 20px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.search button:hover {
+    background-color: #008e70;
+}
+
+/* STATS SECTION */
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat i {
+    font-size: 2.2rem;
+    color: #00a884;
+    margin-bottom: 10px;
+}
+
+.stat h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* HOW IT WORKS */
+.howItWorks {
+    padding: 100px 10%;
+    background-color: white;
+    text-align: center;
+    margin-top: -125px;
+}
+
+.title {
+    margin-top: 70px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.titleMark {
+    width: 50px;
+    height: 3px;
+    background-color: #00a884;
+    border: none;
+    margin: 15px auto 50px;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.step {
+    background: #f8f8f8;
+    padding: 40px 25px;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+}
+
+.step i {
+    font-size: 2.5rem;
+    color: #00a884;
+    margin-bottom: 20px;
+}
+
+.step h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.stats-section {
+    background: #f9fafc;
+    margin-top: -80px;  /* pulls it up over the landing section */
+    z-index: 10;         /* make sure it sits above landing */
+    position: relative;
+    padding-top: 60px;   /* optional: extra spacing inside stats */
+    padding-bottom: 60px;
+}
+
+.stat {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    width: 220px;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+}
+
+.stat i {
+    color: #1d4ed8;
+    margin-bottom: 15px;
+}
+
+.stat h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: #1e40af;
+    margin: 10px 0;
+}
+
+.stat p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.stats {
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.stats .counter {
+    font-family: "Poppins", sans-serif;
+    color: #1d4ed8;
+    transition: color 0.3s ease;
+}
+
+.stats div:hover .counter {
+    color: #0b3ea8;
+}
+
+.stats p {
+    color: #374151;
+    font-weight: 500;
+}
+
+.stats .grid > div {
+    background: #fff;
+}
+
+

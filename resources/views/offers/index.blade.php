@@ -58,28 +58,6 @@
                        class="px-4 py-2 bg-gray-100 text-gray-800 font-medium rounded-lg hover:bg-gray-200 transition">
                         View
                     </a>
-
-                    @if(auth()->user()->role === 'client'
-                        && $offer->status === 'pending'
-                        && auth()->user()->client->id === $offer->client_id)
-
-                        <form action="{{ route('offers.accept', $offer->id) }}" method="POST" onsubmit="return confirm('Accept this offer?')">
-                            @csrf
-                            @method('PATCH')
-                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition">
-                                Accept
-                            </button>
-                        </form>
-
-                        <form action="{{ route('offers.reject', $offer->id) }}" method="POST" onsubmit="return confirm('Reject this offer?')">
-                            @csrf
-                            @method('PATCH')
-                            <button class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
-                                Reject
-                            </button>
-                        </form>
-
-                    @endif
                 </div>
             </div>
         @empty
