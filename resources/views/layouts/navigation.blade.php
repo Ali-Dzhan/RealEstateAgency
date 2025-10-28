@@ -5,6 +5,14 @@
 
         <!-- Links -->
         <div class="space-x-4">
+
+            @auth
+            @if(auth()->user()->role === 'agent')
+                <a href="{{ route('offers.create') }}" class="relative pb-1.5 border-b-4 border-transparent
+                 hover:border-blue-600 transition-all duration-300">+ New Offer</a>
+            @endif
+            @endauth
+
             <a href="{{ route('properties.index') }}" class="relative pb-1.5 border-b-4 border-transparent
              hover:border-blue-600 transition-all duration-300">Properties</a>
 
@@ -15,9 +23,10 @@
                     <a href="{{ route('clients.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Clients</a>
                 @endif
+
                 <a href="{{ route('viewings.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Viewings</a>
-                <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
+                <a href="{{ route('offers.index') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Offers</a>
                 <a href="{{ route('profile.edit') }}" class="relative pb-1.5 border-b-4 border-transparent
                  hover:border-blue-600 transition-all duration-300">Profile</a>
@@ -25,13 +34,12 @@
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="relative pb-1.5 border-b-4 border-transparent
-                     hover:border-blue-600 transition-all duration-300 font-extrabold">Logout</button>
+                     hover:border-blue-600 transition-all duration-300 font-extrabold">Logout
+                    </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="relative pb-1.5 border-b-4 border-transparent
-                 hover:border-blue-600 transition-all duration-300">Login</a>
-                <a href="{{ route('register') }}" class="relative pb-1.5 border-b-4 border-transparent
-                 hover:border-blue-600 transition-all duration-300">Register</a>
+                <a href="{{ route('auth') }}" class="relative pb-1.5 border-b-4 border-transparent
+                 hover:border-blue-600 transition-all duration-300">Login | Register</a>
             @endauth
         </div>
     </div>
