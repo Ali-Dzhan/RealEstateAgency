@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ViewingController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +41,16 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::middleware(['auth', 'isAgentOrAdmin'])->group(function () {
         Route::get('/viewings/{viewing}/edit', [ViewingController::class, 'edit'])->name('viewings.edit');
     });
+
+    //Offers & Transactions
+    Route::get('/offers', [OfferController::class,'index'])->name('offers.index');
+    Route::get('/offers/create', [OfferController::class,'create'])->name('offers.create')->middleware('isAgent');
+    Route::post('/offers', [OfferController::class,'store'])->name('offers.store')->middleware('isAgent');
+    Route::get('/offers/{offer}', [OfferController::class,'show'])->name('offers.show');
+    Route::patch('/offers/{offer}/accept', [OfferController::class,'accept'])->name('offers.accept');
+    Route::patch('/offers/{offer}/reject', [OfferController::class,'reject'])->name('offers.reject');
+
+    Route::get('/transactions', [TransactionController::class,'index'])->name('transactions.index');
 });
 
 // Public routes
