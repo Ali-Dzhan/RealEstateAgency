@@ -7,6 +7,9 @@
 
         <title>{{ config('app.name', 'Real Estate') }}</title>
 
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -14,8 +17,13 @@
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" sizes="32x32">
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" sizes="32x32">
 
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link href="{{ asset('css/custom-cards.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

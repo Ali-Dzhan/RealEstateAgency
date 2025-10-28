@@ -1,0 +1,231 @@
+/* ============================= */
+/* Clean Custom Property Cards   */
+/* ============================= */
+
+
+/* global variable */
+
+:root {
+    --bg-body: #f4f4f4;
+    --bg-hot: #dd3333;
+    --bg-featured: #ea723d;
+    --p-text-color: #7e8186;
+    --icon-info-color: #808080;
+    --icon-image-color: white;
+    --h2-text-color: #1a1a1a;
+    --price-text-color: #2fa89e;
+    --backgound-imgage: #3b9f93;
+    --border-view-color: #a4d2c3;
+}
+
+/* all element */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.custom-cards-wrapper {
+    --bg-hot: #dd3333;
+    --bg-featured: #ea723d;
+    --text-main: #1a1a1a;
+    --text-muted: #7e8186;
+    --price-color: #2fa89e;
+    --overlay-color: #3b9f93;
+    --border-view-color: #a4d2c3;
+    font-family: "Open Sans", sans-serif;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1200px;
+}
+
+figcaption {
+    padding: 30px 0 0 30px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--h2-text-color);
+    font-size: 1.2rem;
+}
+
+.price span:last-of-type {
+    color: var(--price-text-color);
+    font-size: 18px;
+}
+
+/* Reset font inside */
+.custom-cards-wrapper * {
+    font-family: inherit;
+    color: inherit;
+}
+
+/* Cards Grid — fixed height & consistent layout */
+.custom-cards-wrapper .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    align-items: start;
+}
+
+/* Individual Card */
+.custom-cards-wrapper .card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 0 6px 2px #e1e1e1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 0;
+    overflow: hidden;
+    height: 100%;
+    min-height: 400px;
+}
+
+.custom-cards-wrapper .card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image Section */
+.custom-cards-wrapper .img-overlay {
+    position: relative;
+    width: 100%;
+    padding-top: 60%; /* consistent aspect ratio */
+    overflow: hidden;
+}
+
+.custom-cards-wrapper .img-overlay img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Hot Badge */
+.custom-cards-wrapper .hot-home::before {
+    content: "hot";
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 3px 8px;
+    background: var(--bg-hot);
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Hover Overlay */
+.custom-cards-wrapper .overlay {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: var(--overlay-color);
+    opacity: 0.8;
+    display: grid;
+    place-content: center;
+    transition: width 0.4s ease;
+}
+
+.custom-cards-wrapper .overlay a {
+    display: none;
+    color: #fff;
+    text-transform: capitalize;
+    border: 2px solid var(--border-view-color);
+    padding: 12px 24px;
+}
+
+.custom-cards-wrapper .img-overlay:hover .overlay {
+    width: 100%;
+}
+
+.custom-cards-wrapper .img-overlay:hover .overlay a {
+    display: block;
+}
+
+/* Card Body */
+.custom-cards-wrapper .card-content {
+    flex: 1;
+    padding: 18px 20px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.custom-cards-wrapper .card-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.custom-cards-wrapper .card-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+/* Icon / Info Row */
+.custom-cards-wrapper .icons-home {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.custom-cards-wrapper .icon {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.custom-cards-wrapper .icon i {
+    margin-right: 6px;
+}
+
+/* Price Section */
+.custom-cards-wrapper .price {
+    margin-top: 10px;
+}
+
+.custom-cards-wrapper .price span:first-child {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.custom-cards-wrapper .price span:last-child {
+    color: var(--price-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Buttons on Image (Heart / Share) */
+.custom-cards-wrapper .icons-img button {
+    position: absolute;
+    top: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.custom-cards-wrapper .icons-img button:first-of-type {
+    right: 50px;
+}
+
+.custom-cards-wrapper .icons-img button:last-of-type {
+    right: 10px;
+}
+
+.custom-cards-wrapper .icons-img button:first-of-type:hover {
+    color: #ff3232;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .custom-cards-wrapper .cards {
+        grid-template-columns: 1fr;
+    }
+}

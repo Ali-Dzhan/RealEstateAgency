@@ -14,7 +14,7 @@
             <div class="login-form">
                 <!-- LOGIN FORM -->
                 <div class="sign-in-htm">
-                    <form method="POST" action="{{ route('auth') }}">
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="group">
                             <label for="login-username" class="label">Username</label>
@@ -46,7 +46,7 @@
 
                 <!-- REGISTER FORM -->
                 <div class="sign-up-htm">
-                    <form method="POST" action="{{ route('auth') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="group">
                             <label for="reg-username" class="label">Username</label>
