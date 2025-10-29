@@ -41,6 +41,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::middleware(['auth', 'isAgentOrAdmin'])->group(function () {
         Route::get('/viewings/{viewing}/edit', [ViewingController::class, 'edit'])->name('viewings.edit');
     });
+    Route::delete('/viewings/{viewing}', [ViewingController::class, 'destroy'])->name('viewings.destroy')->middleware('isAdmin');
 
     //Offers & Transactions
     Route::get('/offers', [OfferController::class,'index'])->name('offers.index');

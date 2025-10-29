@@ -131,4 +131,16 @@ class ViewingController extends Controller
 
         return view('viewings.edit', compact('viewing'));
     }
+
+    public function destroy(Viewing $viewing)
+    {
+        $user = auth()->user();
+        if($user->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $viewing->delete();
+
+        return redirect()->route('viewings.index')->with('success', 'Viewing deleted successfully.');
+    }
 }
