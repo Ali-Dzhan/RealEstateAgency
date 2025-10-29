@@ -46,66 +46,78 @@
         </form>
     </section>
 
-    <!-- Properties Grid -->
+    <!-- Properties Slider -->
     <section class="custom-cards-wrapper py-16 px-6 md:px-12">
-        <div class="container">
-            <div class="cards">
-                @foreach($properties as $property)
-                    <section class="card">
-                        <figure>
-                            <div class="img-overlay hot-home">
-                                <img src="{{ asset($property->photos->first()->path ?? 'images/default.png') }}" alt="Property">
-                                <div class="overlay">
-                                    <a href="{{ route('properties.show', $property->id) }}">View Property</a>
-                                </div>
-                            </div>
-                            <figcaption>{{ $property->address }}</figcaption>
-                        </figure>
+        <div id="slider" class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    @foreach($properties as $property)
+                        <li class="splide__slide">
+                            <section class="card">
+                                <figure>
+                                    <div class="img-overlay {{ in_array($property->id, $hotIds ?? []) ? 'hot-home' : '' }}">
+                                        <img src="{{ asset($property->photos->first()->path ?? 'images/default.png') }}" alt="Property">
+                                        <div class="overlay">
+                                            <a href="{{ route('properties.show', $property->id) }}">View Property</a>
+                                        </div>
+                                    </div>
+                                    <figcaption>{{ $property->address }}</figcaption>
+                                </figure>
 
-                        <div class="card-content">
-                            <section class="icons-home">
-                                <div class="name-icon">
-                                    <span>Type</span>
-                                    <div class="icon">
-                                        <i class="fas fa-home"></i>
-                                        <span>{{ $property->type->name }}</span>
-                                    </div>
-                                </div>
-                                <div class="name-icon">
-                                    <span>Rooms</span>
-                                    <div class="icon">
-                                        <i class="fas fa-bed"></i>
-                                        <span>{{ $property->rooms }}</span>
-                                    </div>
-                                </div>
-                                <div class="name-icon">
-                                    <span>Area</span>
-                                    <div class="icon">
-                                        <i class="fas fa-vector-square"></i>
-                                        <span>{{ $property->area }} m²</span>
-                                    </div>
-                                </div>
-                                <div class="name-icon">
-                                    <span>Agent</span>
-                                    <div class="icon">
-                                        <i class="fas fa-user"></i>
-                                        <span>{{ $property->agent->first_name }} {{ $property->agent->last_name }}</span>
-                                    </div>
+                                <div class="card-content">
+                                    <section class="icons-home text-slate-700">
+                                        <div class="name-icon">
+                                            <i class="fa-solid fa-house"></i>
+                                            <span class="value">{{ $property->type->name }}</span>
+                                        </div>
+                                        <div class="name-icon">
+                                            <i class="fa-solid fa-bed"></i>
+                                            <span class="value">{{ $property->rooms }}</span>
+                                        </div>
+                                        <div class="name-icon">
+                                            <i class="fa-solid fa-ruler-combined"></i>
+                                            <span class="value">{{ $property->area }} m²</span>
+                                        </div>
+                                        <div class="name-icon">
+                                            <i class="fa-solid fa-user-tie"></i>
+                                            <span class="value">{{ $property->agent->first_name }} {{ $property->agent->last_name }}</span>
+                                        </div>
+                                    </section>
+
+                                    <section class="price">
+                                        <span>${{ number_format($property->price, 0) }}</span>
+                                    </section>
                                 </div>
                             </section>
-
-                            <section class="price">
-                                <span>${{ number_format($property->price, 0) }}</span>
-                            </section>
-                        </div>
-                    </section>
-                @endforeach
+                        </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </section>
 
     <!-- Pagination -->
-    <div class="pagination-wrapper mt-8 flex justify-center">
-        {{ $properties->links() }}
+    <div class="mt-8">
+        {{ $properties->onEachSide(1)->links() }}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if(document.querySelector('#slider')){
+                new Splide('#slider', {
+                    type       : 'loop',
+                    perPage    : 3,
+                    gap        : '1rem',
+                    speed      : 1000,
+                    pagination : true,
+                    rewind     : true,
+                    focus      : 'center',
+                    breakpoints: {
+                        1280: { perPage: 2, gap: '1.5rem' },
+                        768: { perPage: 1, gap: '1rem' },
+                    },
+                }).mount();
+            }
+        });
+    </script>
 @endsection
