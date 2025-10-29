@@ -39,10 +39,11 @@ class PropertyController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        $properties = $query->orderBy('created_at', 'desc')->paginate(3);
+        $properties = $query->orderBy('created_at', 'desc')->paginate(10);
 
         $types = PropertyType::all();
-        return view('properties.index', compact('properties', 'types'));
+        $hotIds = $properties->count() ? $properties->random(min(3, $properties->count()))->pluck('id')->toArray() : [];
+        return view('properties.index', compact('properties', 'types', 'hotIds'));
     }
 
     public function home() {
