@@ -7,6 +7,16 @@
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold text-gray-800">Offer Details</h1>
 
+
+                @if(auth()->user()->role === 'admin' ||
+                    (auth()->user()->role === 'agent' && $offer->agent_id === auth()->user()->agent->id))
+                    <a href="{{ route('offers.history', $offer->id) }}"
+                       class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        View Change History
+                    </a>
+                @endif
+
+
                 <a href="{{ route('offers.index') }}"
                    class="text-blue-600 font-medium hover:underline">
                     ← Back to Offers

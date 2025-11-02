@@ -26,6 +26,7 @@
 
                     @php
                         $isClient = auth()->check() && auth()->user()->role === 'client';
+                        $isAvailable = $property->status === 'available';
                     @endphp
 
                     <form action="{{ route('viewings.store') }}" method="POST" class="space-y-4">
@@ -47,10 +48,16 @@
 
                         <button type="submit"
                                 class="w-full py-3 rounded-lg font-semibold transition
-                            {{ $isClient ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}"
-                            {{ $isClient ? '' : 'disabled' }}>
+                            {{ $isClient && $isAvailable ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}"
+                            {{ $isClient && $isAvailable ? '' : 'disabled' }}>
                             Book Viewing
                         </button>
+
+                        @if(!$isAvailable)
+                            <p class="text-red-600 text-center mt-2 text-sm font-extrabold">
+                                This property is not available for viewing.
+                            </p>
+                        @endif
 
                         @unless($isClient)
                             <p class="text-gray-500 text-center mt-2 text-sm italic">
@@ -80,9 +87,11 @@
                         <p><strong>Area:</strong> {{ $property->area }} m²</p>
                         <p>
                             <strong>Status:</strong>
-                            <span class="{{ $property->status === 'available' ? 'text-green-600' : 'text-red-600' }}">
-                                {{ ucfirst($property->status) }}
-                            </span>
+                            <span class="{{ $property->status === 'available'
+                            ? 'bg-green-600/40 text-green-900 font-extrabold px-2 py-1 rounded'
+                            : 'bg-red-600/40 text-red-900 font-extrabold px-2 py-1 rounded' }}">
+                            {{ ucfirst($property->status) }}
+                           </span>
                         </p>
                     </div>
 
