@@ -10,7 +10,14 @@
                 <label>Property</label>
                 <select name="property_id" required class="w-full border rounded p-2">
                     @foreach($properties as $id => $address)
-                        <option value="{{ $id }}">{{ $address }}</option>
+                        @php
+                            $property = \App\Models\Property::find($id);
+                        @endphp
+                        <option value="{{ $id }}"
+                            {{ $property->status !== 'available' ? 'disabled class=text-gray-400' : '' }}>
+                            {{ $address }}
+                            @if($property->status !== 'available') ({{ ucfirst($property->status) }}) @endif
+                        </option>
                     @endforeach
                 </select>
             </div>

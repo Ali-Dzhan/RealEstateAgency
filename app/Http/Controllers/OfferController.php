@@ -29,7 +29,11 @@ class OfferController extends Controller
     {
         $user = Auth::user();
         if ($user->role !== 'agent') abort(403);
-        $properties = $user->agent->properties()->pluck('address','id');
+
+        $properties = $user->agent->properties()
+            ->where('status', 'available')
+            ->pluck('address','id');
+
         $clients = Client::orderBy('name')->get();
         return view('offers.create', compact('properties','clients'));
     }
@@ -48,7 +52,11 @@ class OfferController extends Controller
         ]);
 
         $property = Property::find($request->property_id);
+
         if ($property->agent_id !== $user->agent->id) abort(403);
+        if ($property->status !== 'available') {
+            return redirect()->back()->withErrors('This property is not available for offers.');
+        }
 
         $offer = Offer::create([
             'property_id' => $property->id,
@@ -60,7 +68,10 @@ class OfferController extends Controller
             'notes' => $request->notes,
         ]);
 
-        return redirect()->route('offers.index')->with('success','Offer created.');
+        $offer->property()->update(['status' => 'reserved']);
+
+        return redirect()->route('offers.index')
+            ->with('success','Offer created. Property reserved.');
     }
 
     // client accepts — create a transaction
@@ -81,7 +92,7 @@ class OfferController extends Controller
             'reference' => 'AUTO-' . strtoupper(uniqid()),
         ]);
 
-        $offer->property()->update(['status' => 'reserved']);
+        $offer->property()->update(['status' => 'sold']);
 
         return redirect()->route('offers.index')->with('success','Offer accepted and transaction recorded.');
     }
@@ -106,5 +117,22 @@ class OfferController extends Controller
 
         $offer->load('property','agent','client','transactions');
         return view('offers.show', compact('offer'));
+    }
+
+    // history of changes
+    public function history(Offer $offer)
+    {
+        $user = auth()->user();
+
+        // ACL
+        if ($user->role === 'admin') {
+            $histories = $offer->histories()->with('user')->latest()->get();
+        } elseif ($user->role === 'agent') {
+            $histories = $offer->histories()->with('user')->latest()->get();
+        } else {
+            abort(403, 'Unauthorized access.');
+        }
+
+        return view('offers.history', compact('offer', 'histories'));
     }
 }

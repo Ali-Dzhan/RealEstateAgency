@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +15,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     // Admin-only routes
     Route::middleware('isAdmin')->group(function () {
+        Route::get('audit_logs', [AuditLogController::class, 'index'])->name('audit_logs.index');
         Route::resource('agents', AgentController::class)->only(['index', 'edit', 'update', 'destroy']);
         Route::resource('clients', ClientController::class)->only(['index', 'edit', 'update', 'destroy']);
     });
@@ -50,6 +52,8 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/offers/{offer}', [OfferController::class,'show'])->name('offers.show');
     Route::patch('/offers/{offer}/accept', [OfferController::class,'accept'])->name('offers.accept');
     Route::patch('/offers/{offer}/reject', [OfferController::class,'reject'])->name('offers.reject');
+    Route::get('/offers/{offer}/history', [OfferController::class, 'history'])
+        ->name('offers.history')->middleware('isAgentOrAdmin');;
 
     Route::get('/transactions', [TransactionController::class,'index'])->name('transactions.index');
 });

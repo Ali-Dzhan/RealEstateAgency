@@ -16,6 +16,14 @@ Route::middleware('guest')->group(function () {
         return view('auth.auth'); // your flip-card view
     })->name('auth');
 
+    Route::get('login', function () {
+        return redirect()->route('auth');
+    })->name('login');
+
+    Route::get('register', function () {
+        return redirect()->route('auth');
+    })->name('register');
+
     //Login & Register post routes
     Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
