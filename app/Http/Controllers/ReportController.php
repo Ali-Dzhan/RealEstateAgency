@@ -112,8 +112,8 @@ class ReportController extends Controller
                 'agent_id' => $row->agent_id,
                 'first_name' => $agent->first_name ?? null,
                 'last_name' => $agent->last_name ?? null,
-                'total_deals' => (int) $row->total_deals,
-                'total_value' => (float) $row->total_value,
+                'total_deals' => (int)$row->total_deals,
+                'total_value' => (float)$row->total_value,
             ];
         });
 
@@ -277,4 +277,219 @@ class ReportController extends Controller
         return view('reports.monthly_transaction_summary', compact('data', 'start', 'end'));
     }
 
+    // 1) Deals By Region
+    public function exportDealsByRegion()
+    {
+        $offers = Offer::with(['property.region', 'agent', 'client'])
+            ->where('status', 'accepted')
+            ->orderBy('created_at')
+            ->get();
+
+        $rows = $offers->map(function ($o) {
+            return [
+                optional($o->property->region)->name,
+                $o->price,
+                $o->agent ? ($o->agent->first_name . ' ' . $o->agent->last_name) : '—',
+                $o->client?->name ?? '—',
+                $o->created_at->format('d.m.Y'),
+            ];
+        });
+
+        return export_csv('deals_by_region.csv', [
+            'Регион', 'Цена', 'Агент', 'Клиент', 'Дата'
+        ], $rows);
+    }
+
+    // 2) Deals By Period
+    public function exportDealsByPeriod(Request $request)
+    {
+        $start = $request->input('start_date', now()->subMonth()->toDateString());
+        $end = $request->input('end_date', now()->toDateString());
+
+        $offers = Offer::with(['property.region', 'agent', 'client'])
+            ->where('status', 'accepted')
+            ->whereBetween('created_at', [$start, $end])
+            ->orderBy('created_at')
+            ->get();
+
+        $rows = $offers->map(function ($o) {
+            return [
+                $o->created_at->format('d.m.Y'),
+                $o->property?->address ?? '—',
+                $o->price,
+                $o->agent ? ($o->agent->first_name . ' ' . $o->agent->last_name) : '—',
+                $o->client?->name ?? '—',
+            ];
+        })->toArray();
+
+        return export_csv('deals_by_period.csv', [
+            'Дата', 'Имот', 'Цена', 'Агент', 'Клиент'
+        ], $rows);
+    }
+
+    // 3) Average Deal Time
+    public function exportAvgDealTime()
+    {
+        $offers = Offer::with(['property.region', 'agent', 'client'])
+            ->where('status', 'accepted')
+            ->orderBy('created_at')
+            ->get();
+
+        $rows = $offers->map(function ($o) {
+            return [
+                $o->id,
+                $o->property?->address ?? '—',
+                $o->property?->region?->name ?? '—',
+                $o->agent ? ($o->agent->first_name . ' ' . $o->agent->last_name) : '—',
+                $o->client?->name ?? '—',
+                $o->price,
+                $o->created_at->diffInDays($o->updated_at),
+            ];
+        });
+
+        return export_csv('avg_deal_time.csv', [
+            'Оферта ID',
+            'Адрес',
+            'Регион',
+            'Агент',
+            'Клиент',
+            'Цена',
+            'Дни до сделка'
+        ], $rows);
+    }
+
+    // 4) Top Agents
+    public function exportTopAgents()
+    {
+        $data = Offer::where('status', 'accepted')
+            ->select('agent_id', DB::raw('COUNT(*) as total_deals'), DB::raw('SUM(price) as total_value'))
+            ->groupBy('agent_id')
+            ->orderByDesc('total_deals')
+            ->with('agent')
+            ->get();
+
+        $rows = $data->map(function ($a) {
+            return [
+                $a->agent ? ($a->agent->first_name . ' ' . $a->agent->last_name) : '—',
+                $a->total_deals,
+                $a->total_value,
+            ];
+        });
+
+        return export_csv('top_agents.csv', [
+            'Агент', 'Брой Сделки', 'Обща Стойност'
+        ], $rows);
+    }
+
+    // 5) Properties Without Viewings
+    public function exportPropertiesWithoutViewings()
+    {
+        $threshold = Carbon::now()->subDays(30);
+
+        $properties = Property::with(['region', 'agent', 'viewings'])
+            ->whereDoesntHave('viewings', function ($q) use ($threshold) {
+                $q->where('created_at', '>=', $threshold);
+            })
+            ->get()
+            ->map(function ($p) {
+                $last = $p->viewings()->latest()->first();
+                return [
+                    $p->address,
+                    optional($p->region)->name,
+                    $p->agent ? ($p->agent->first_name . ' ' . $p->agent->last_name) : '—',
+                    $last ? $last->created_at->format('d.m.Y') : 'Няма'
+                ];
+            });
+
+        return export_csv('properties_without_viewings.csv', [
+            'Адрес', 'Регион', 'Агент', 'Последен оглед'
+        ], $properties);
+    }
+
+    // 6) Avg Price by Type and Region
+    public function exportAvgPriceByType(Request $request)
+    {
+        $data = $this->avgPriceByType($request)->getData()['data'];
+
+        $rows = $data->map(function ($row) {
+            return [
+                $row->type,
+                $row->region,
+                round($row->avg_price, 2),
+                $row->property_count,
+            ];
+        });
+
+        return export_csv('avg_price_by_type_region.csv', [
+            'Тип', 'Регион', 'Средна Цена', 'Брой Имоти'
+        ], $rows);
+    }
+
+    // 7) Revenue by Region
+    public function exportRevenueByRegion(Request $request)
+    {
+        $data = $this->revenueByRegion($request)->getData()['data'];
+
+        $rows = $data->map(fn($r) => [
+            $r->region,
+            $r->total_revenue,
+            $r->total_deals,
+            round($r->avg_deal_value, 2),
+        ]);
+
+        return export_csv('revenue_by_region.csv', [
+            'Регион', 'Приход', 'Брой Сделки', 'Средна Стойност'
+        ], $rows);
+    }
+
+    // 8) Avg Transaction Value by Agent
+    public function exportAvgTransactionValue()
+    {
+        $data = $this->avgTransactionByAgent()->getData()['data'];
+
+        $rows = $data->map(fn($r) => [
+            $r->first_name . ' ' . $r->last_name,
+            round($r->avg_value, 2),
+            $r->total_transactions,
+            $r->max_value,
+        ]);
+
+        return export_csv('avg_transaction_by_agent.csv', [
+            'Агент', 'Средна Стойност', 'Брой Транзакции', 'Максимална Стойност'
+        ], $rows);
+    }
+
+    // 9) Deal Range by Property Type
+    public function exportDealRange()
+    {
+        $data = $this->dealRangeByPropertyType()->getData()['data'];
+
+        $rows = $data->map(fn($r) => [
+            $r->type,
+            $r->min_value,
+            $r->max_value,
+            round($r->avg_value, 2),
+        ]);
+
+        return export_csv('deal_range_by_property_type.csv', [
+            'Тип', 'Минимална Стойност', 'Максимална Стойност', 'Средна Стойност'
+        ], $rows);
+    }
+
+    // 10) Monthly Transaction Summary
+    public function exportMonthlyTransactions(Request $request)
+    {
+        $data = $this->monthlyTransactionSummary($request)->getData()['data'];
+
+        $rows = $data->map(fn($r) => [
+            $r->month,
+            $r->total_revenue,
+            $r->total_transactions,
+            round($r->avg_value, 2),
+        ]);
+
+        return export_csv('monthly_transaction_summary.csv', [
+            'Месец', 'Приход', 'Брой Транзакции', 'Средна Стойност'
+        ], $rows);
+    }
 }

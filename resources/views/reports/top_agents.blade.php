@@ -4,13 +4,18 @@
     <section class="max-w-4xl mx-auto py-10 px-6">
         <h1 class="text-2xl font-bold mb-6">Top Agents</h1>
 
-        <table class="min-w-full border text-sm">
+        <a href="{{ route('reports.top_agents.export') }}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium">
+            Export CSV
+        </a>
+
+        <table class="min-w-full border text-sm mt-6">
             <thead class="bg-gray-100">
             <tr>
                 <th class="p-2 border">#</th>
                 <th class="p-2 border">Agent</th>
                 <th class="p-2 border">Deals</th>
-                <th class="p-2 border">Total Value (€)</th>
+                <th class="p-2 border text-right">Total Value (€)</th>
             </tr>
             </thead>
             <tbody>
