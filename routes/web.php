@@ -33,6 +33,18 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/reports/avg-transaction-by-agent', [ReportController::class, 'avgTransactionByAgent'])->name('reports.avg_transaction_by_agent');
         Route::get('/reports/deal-range-by-property-type', [ReportController::class, 'dealRangeByPropertyType'])->name('reports.deal_range_by_property_type');
         Route::get('/reports/monthly-transaction-summary', [ReportController::class, 'monthlyTransactionSummary'])->name('reports.monthly_transaction_summary');
+
+        // REPORTS CSV EXPORTS
+        Route::get('/reports/deals-by-region/export', [ReportController::class, 'exportDealsByRegion'])->name('reports.deals_by_region.export');
+        Route::get('/reports/deals-by-period/export', [ReportController::class, 'exportDealsByPeriod'])->name('reports.deals_by_period.export');
+        Route::get('/reports/avg-deal-time/export', [ReportController::class, 'exportAvgDealTime'])->name('reports.avg_deal_time.export');
+        Route::get('/reports/top-agents/export', [ReportController::class, 'exportTopAgents'])->name('reports.top_agents.export');
+        Route::get('/reports/properties-without-viewings/export', [ReportController::class, 'exportPropertiesWithoutViewings'])->name('reports.properties_without_viewings.export');
+        Route::get('/reports/avg-price/export', [ReportController::class, 'exportAvgPriceByType'])->name('reports.avg_price_by_type.export');
+        Route::get('/reports/revenue-by-region/export', [ReportController::class, 'exportRevenueByRegion'])->name('reports.revenue_by_region.export');
+        Route::get('/reports/avg-transaction-by-agent/export', [ReportController::class, 'exportAvgTransactionValue'])->name('reports.avg_transaction_by_agent.export');
+        Route::get('/reports/deal-range-by-property-type/export', [ReportController::class, 'exportDealRange'])->name('reports.deal_range_by_property_type.export');
+        Route::get('/reports/monthly-transaction-summary/export', [ReportController::class, 'exportMonthlyTransactions'])->name('reports.monthly_transaction_summary.export');
     });
 
     Route::middleware(['web', 'auth', 'isAgentOrAdmin'])->group(function () {
