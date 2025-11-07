@@ -41,6 +41,7 @@ class ProfileUpdateRequest extends FormRequest
 
         if ($this->user()->role === 'client') {
             $rules = array_merge($rules, [
+                'name' => ['nullable', 'string', 'max:255'],
                 'phone' => ['nullable', 'string', 'max:20'],
             ]);
         }
