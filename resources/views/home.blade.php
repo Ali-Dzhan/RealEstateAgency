@@ -130,17 +130,17 @@
         <div class="max-w-6xl mx-auto bg-white rounded-2xl py-12 px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-center border border-gray-100">
             <div class="flex flex-col items-center space-y-2">
                 <i class="fa-solid fa-user-tie text-blue-600 text-4xl"></i>
-                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $agentsCount ?? 20000 }}">0</h2>
+                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $agentsCount ?? 1548 }}">0</h2>
                 <p class="text-gray-600 text-lg font-medium">Agents</p>
             </div>
             <div class="flex flex-col items-center space-y-2">
                 <i class="fa-solid fa-file-signature text-blue-600 text-4xl"></i>
-                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $transactionsCount ?? 1723000 }}">0</h2>
+                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $transactionsCount ?? 72347 }}">0</h2>
                 <p class="text-gray-600 text-lg font-medium">Transactions</p>
             </div>
             <div class="flex flex-col items-center space-y-2">
                 <i class="fa-solid fa-building text-blue-600 text-4xl"></i>
-                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $agenciesCount ?? 17414 }}">0</h2>
+                <h2 class="counter text-4xl font-extrabold text-blue-700 tracking-tight" data-target="{{ $agenciesCount ?? 514 }}">0</h2>
                 <p class="text-gray-600 text-lg font-medium">Agencies</p>
             </div>
             <div class="flex flex-col items-center space-y-2">
