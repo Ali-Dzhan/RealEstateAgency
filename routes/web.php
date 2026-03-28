@@ -103,6 +103,8 @@ Route::middleware('web')->group(function () {
     Route::view('/about-us', 'about-us.index')->name('about-us.index');
     Route::view('/contact-us', 'contact-us.index')->name('contact-us.index');
     Route::post('/contact-us', [ContactController::class, 'store'])->name('contact-us.store');
+
+    Route::view('/privacy-policy', 'privacy')->name('privacy');
 });
 
 require __DIR__ . '/auth.php';
