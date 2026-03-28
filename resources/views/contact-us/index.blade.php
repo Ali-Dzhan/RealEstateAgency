@@ -87,7 +87,23 @@
                             <p class="text-gray-500 mt-2">Our agents usually respond within 2-4 business hours.</p>
                         </div>
 
-                        <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        @if(session('success'))
+                            <div class="md:col-span-2 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>{{ session('success') }}</span>
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="md:col-span-2 bg-red-100 text-red-700 p-4 rounded-xl mb-6">
+                                <ul class="list-disc ml-5">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('contact-us.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             @csrf
                             <div class="space-y-2">
                                 <label class="text-sm font-bold text-gray-700 ml-1">Your Full Name</label>

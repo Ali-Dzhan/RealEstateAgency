@@ -22,6 +22,10 @@
                             <a href="{{ route('agents.index') }}" class="block px-4 py-2 hover:bg-gray-100">Agents</a>
                             <a href="{{ route('clients.index') }}" class="block px-4 py-2 hover:bg-gray-100">Clients</a>
                             <a href="{{ route('audit_logs.index') }}" class="block px-4 py-2 hover:bg-gray-100">Audit Logs</a>
+                            <a href="{{ route('messages.index') }}"
+                               class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                Client Inquiries
+                            </a>
                         </div>
                     </div>
                 @endif
