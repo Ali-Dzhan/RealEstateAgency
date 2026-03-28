@@ -95,6 +95,9 @@ Route::middleware('web')->group(function () {
     Route::get('/', [PropertyController::class, 'home'])->name('home');
     Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
     Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
+
+    Route::view('/about-us', 'about-us.index')->name('about-us.index');
+    Route::view('/contact-us', 'contact-us.index')->name('contact-us.index');
 });
 
 require __DIR__ . '/auth.php';
