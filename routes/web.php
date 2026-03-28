@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferExportController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,9 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('audit_logs', [AuditLogController::class, 'index'])->name('audit_logs.index');
         Route::resource('agents', AgentController::class)->only(['index', 'edit', 'update', 'destroy']);
         Route::resource('clients', ClientController::class)->only(['index', 'edit', 'update', 'destroy']);
+
+        Route::get('/messages', [ContactController::class, 'index'])->name('messages.index');
+        Route::delete('/messages/{message}', [ContactController::class, 'destroy'])->name('messages.destroy');
 
         // Reports
         Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
@@ -98,6 +102,7 @@ Route::middleware('web')->group(function () {
 
     Route::view('/about-us', 'about-us.index')->name('about-us.index');
     Route::view('/contact-us', 'contact-us.index')->name('contact-us.index');
+    Route::post('/contact-us', [ContactController::class, 'store'])->name('contact-us.store');
 });
 
 require __DIR__ . '/auth.php';
