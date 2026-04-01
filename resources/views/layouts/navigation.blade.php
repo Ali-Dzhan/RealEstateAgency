@@ -26,6 +26,7 @@
                                class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
                                 Client Inquiries
                             </a>
+                            <a href="{{ route('reports.index') }}" class="block px-4 py-2 hover:bg-gray-100">Reports</a>
                         </div>
                     </div>
                 @endif
