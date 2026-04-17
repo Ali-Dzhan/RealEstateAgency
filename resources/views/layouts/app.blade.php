@@ -46,13 +46,17 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                @yield('content')
+            <main>
+                @yield('fullwidth')
+
+                <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
+                    @yield('content')
+                </div>
             </main>
         </div>
     </body>
 
-    <footer class="bg-gray-900 text-white py-12 mt-auto">
+    <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 border-t border-gray-800 pt-12">
             <div>
                 <h3 class="text-xl font-bold mb-4">🏠 RealEstate</h3>
