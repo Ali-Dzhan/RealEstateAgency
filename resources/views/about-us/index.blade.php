@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('fullwidth')
     <section class="relative bg-gray-900 text-white py-32">
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070"

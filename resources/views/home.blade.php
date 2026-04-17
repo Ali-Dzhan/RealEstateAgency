@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('fullwidth')
     <section class="relative bg-gray-900 text-white overflow-hidden">
         <div class="absolute inset-0">
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000"
@@ -61,78 +61,68 @@
         </div>
     </section>
 
-    <section class="relative z-20 -mt-16 md:-mt-24 px-6">
-        <div class="max-w-7xl mx-auto bg-white rounded-3xl py-10 px-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100">
-            <div class="flex flex-col items-center space-y-2 p-4 border-r border-gray-50 last:border-0">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-2">
-                    <i class="fa-solid fa-user-tie text-blue-600 text-2xl"></i>
-                </div>
-                <h2 class="counter text-3xl md:text-4xl font-black text-gray-900 tracking-tight" data-target="{{ $agentsCount ?? 1548 }}">0</h2>
-                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Expert Agents</p>
-            </div>
+    <section class="relative py-24 bg-gradient-to-b from-gray-50 via-white to-gray-100 overflow-hidden">
 
-            <div class="flex flex-col items-center space-y-2 p-4 border-r border-gray-50 last:border-0 lg:border-r">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-2">
-                    <i class="fa-solid fa-file-signature text-blue-600 text-2xl"></i>
-                </div>
-                <h2 class="counter text-3xl md:text-4xl font-black text-gray-900 tracking-tight" data-target="{{ $transactionsCount ?? 72347 }}">0</h2>
-                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Successful Sales</p>
-            </div>
+        {{-- subtle pattern --}}
+        <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
-            <div class="flex flex-col items-center space-y-2 p-4 border-r border-gray-50 last:border-0">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-2">
-                    <i class="fa-solid fa-building text-blue-600 text-2xl"></i>
-                </div>
-                <h2 class="counter text-3xl md:text-4xl font-black text-gray-900 tracking-tight" data-target="{{ $agenciesCount ?? 514 }}">0</h2>
-                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Partner Agencies</p>
-            </div>
+        {{-- top divider for smoother transition --}}
+        <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-gray-100 to-transparent"></div>
 
-            <div class="flex flex-col items-center space-y-2 p-4">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-2">
-                    <i class="fa-solid fa-map-location-dot text-blue-600 text-2xl"></i>
-                </div>
-                <h2 class="counter text-3xl md:text-4xl font-black text-gray-900 tracking-tight" data-target="{{ $suburbsCount ?? 10200 }}">0</h2>
-                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Locations</p>
-            </div>
-        </div>
-    </section>
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
 
-    <section class="py-24 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
+            {{-- heading --}}
             <div class="text-center mb-20">
-                <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">How It Works</h2>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                    How It Works
+                </h2>
+
                 <div class="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
+
                 <p class="text-gray-500 text-lg max-w-2xl mx-auto font-light">
                     Buying or selling a home in Bulgaria has never been easier. Follow our simple three-step process.
                 </p>
             </div>
 
+            {{-- steps --}}
             <div class="grid md:grid-cols-3 gap-12 relative">
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -z-0"></div>
 
-                <div class="relative z-10 bg-white group p-10 rounded-3xl border border-gray-100 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 text-center">
+                {{-- connecting line --}}
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-0"></div>
+
+                {{-- card 1 --}}
+                <div class="relative z-10 bg-white/80 backdrop-blur-sm group p-10 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-8 rotate-3 group-hover:rotate-0 transition-transform">
                         <i class="fa-solid fa-search fa-2x"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900">1. Browse</h3>
-                    <p class="text-gray-600 font-light leading-relaxed">Explore thousands of verified listings by location, property type, or price range.</p>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Explore thousands of verified listings by location, property type, or price range.
+                    </p>
                 </div>
 
-                <div class="relative z-10 bg-white group p-10 rounded-3xl border border-gray-100 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 text-center">
+                {{-- card 2 --}}
+                <div class="relative z-10 bg-white/80 backdrop-blur-sm group p-10 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-8 -rotate-3 group-hover:rotate-0 transition-transform">
                         <i class="fa-solid fa-envelope-open-text fa-2x"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900">2. Connect</h3>
-                    <p class="text-gray-600 font-light leading-relaxed">Book viewings directly and get expert guidance from our certified local agents.</p>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Book viewings directly and get expert guidance from our certified local agents.
+                    </p>
                 </div>
 
-                <div class="relative z-10 bg-white group p-10 rounded-3xl border border-gray-100 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 text-center">
+                {{-- card 3 --}}
+                <div class="relative z-10 bg-white/80 backdrop-blur-sm group p-10 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-8 rotate-1 group-hover:rotate-0 transition-transform">
                         <i class="fa-solid fa-house-circle-check fa-2x"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-900">3. Move In</h3>
-                    <p class="text-gray-600 font-light leading-relaxed">Secure your dream home with transparent offers and smooth legal paperwork.</p>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Secure your dream home with transparent offers and smooth legal paperwork.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
