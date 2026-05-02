@@ -65,25 +65,61 @@ The platform focuses on:
 
 ## 📸 Screenshots
 
-## Login/Register
-![Login](screenshots/login.png)
-![Register](screenshots/register.png)
+### Login / Register
 
-## Homepage
+<p align="center">
+  <img src="screenshots/login.png" width="48%" />
+  <img src="screenshots/register.png" width="48%" />
+</p>
 
-![Homepage](screenshots/homepage.png)
+### Homepage
 
-## Properties
+<p align="center">
+  <img src="screenshots/homepage.png" width="80%" />
+</p>
 
-![Properties](screenshots/properties2.png)
-![Properties](screenshots/properties1.png)
+### Properties
 
-## About-us
+<p align="center">
+  <img src="screenshots/properties1.png" width="48%" />
+  <img src="screenshots/properties2.png" width="48%" />
+</p>
 
-![About-us](screenshots/about1.png)
-![About-us](screenshots/about2.png)
+### About Us
 
-## Contact
+<p align="center">
+  <img src="screenshots/about1.png" width="48%" />
+  <img src="screenshots/about2.png" width="48%" />
+</p>
 
-![Contact](screenshots/contact1.png)
-![Contact](screenshots/contact2.png)
+### Contact
+
+<p align="center">
+  <img src="screenshots/contact1.png" width="48%" />
+  <img src="screenshots/contact2.png" width="48%" />
+</p>
+
+---
+
+## 👨‍💻 Author
+
+**Ali-Dzhan Sadak**  
+
+GitHub: https://github.com/Ali-Dzhan
+
+---
+
+## ⭐ Future Improvements
+
+- Advanced property search filters  
+- Google Maps integration  
+- Payment system  
+- Email notifications  
+- Analytics dashboard  
+- Multi-language support  
+
+---
+
+## 📄 License
+
+This project is intended for educational and portfolio purposes.
