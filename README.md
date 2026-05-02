@@ -32,50 +32,18 @@ The platform focuses on:
 - Database-driven architecture
 - Scalable Laravel structure
 
----
-
 ## ✨ Core Features
 
-### 👤 Authentication & Users
-- Secure Login / Registration
-- Session management
-- Profile management
-- Role-based accounts
-
-### 🏢 Property Management
-- Add / Edit / Delete properties
-- Property images
-- Property types
-- Regions / locations
-- Featured listings
-
-### 🤝 Client & Agent System
-- Manage clients
-- Manage agents
-- Internal activity structure
-
-### 💰 Offers & Transactions
-- Submit offers
-- Offer history
-- Transaction records
-
-### 📅 Scheduling
-- Book property viewings
-- Manage appointments
-
-### 📬 Communication
-- Contact inquiries from users
-- Admin message management
-
-### 📊 Admin Tools
-- Reports
-- Audit logs
-- Dashboard controls
-
-### 📱 Responsive Design
-- Mobile-friendly interface
-- Burger menu navigation
-- Optimized layouts
+| Module | Features |
+|--------|----------|
+| 👤 Authentication | Secure login & registration, profiles, role-based access |
+| 🏢 Properties | Add/edit/delete listings, images, types, regions |
+| 🤝 Clients & Agents | Manage clients, agents, internal workflow |
+| 💰 Offers | Submit offers, offer history, transactions |
+| 📅 Viewings | Schedule and manage appointments |
+| 📬 Communication | Contact inquiries and admin messages |
+| 📊 Admin Panel | Reports, audit logs, dashboard tools |
+| 📱 Responsive UI | Mobile-friendly layout, burger menu, optimized pages |
 
 ---
 
