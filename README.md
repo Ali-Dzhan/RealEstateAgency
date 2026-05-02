@@ -65,7 +65,25 @@ The platform focuses on:
 
 ## 📸 Screenshots
 
+## Login/Register
+![Login](screenshots/login.png)
+![Register](screenshots/register.png)
+
 ## Homepage
-```md
-Add image here:
+
 ![Homepage](screenshots/homepage.png)
+
+## Properties
+
+![Properties](screenshots/properties2.png)
+![Properties](screenshots/properties1.png)
+
+## About-us
+
+![About-us](screenshots/about1.png)
+![About-us](screenshots/about2.png)
+
+## Contact
+
+![Contact](screenshots/contact1.png)
+![Contact](screenshots/contact2.png)
