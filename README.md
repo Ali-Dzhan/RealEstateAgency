@@ -1,61 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏠 Real Estate Agency System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-12-red?style=for-the-badge&logo=laravel)]()
+[![PHP](https://img.shields.io/badge/PHP-8.2-blue?style=for-the-badge&logo=php)]()
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql)]()
+[![Render](https://img.shields.io/badge/Hosted%20on-Render-46E3B7?style=for-the-badge)]()
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://realestateagency-whs3.onrender.com/)
 
-## About Laravel
+A full-stack **Laravel Real Estate Management Platform** designed for agencies to manage property listings, agents, clients, offers, property viewings, and internal workflows through a clean modern web interface.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌐 Live Demo
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🔗 **View Project Online:**  
+https://realestateagency-whs3.onrender.com/
 
-## Learning Laravel
+> Public demo hosted on Render with PostgreSQL database.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 📌 Project Overview
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+This system was developed as a complete web solution for real estate agencies.  
+It allows administrators and agents to manage listings, interact with clients, schedule viewings, receive offers, and organize property data efficiently.
 
-## Laravel Sponsors
+The platform focuses on:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Professional UI/UX
+- Responsive design
+- Role-based access
+- Database-driven architecture
+- Scalable Laravel structure
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ✨ Core Features
 
-## Contributing
+### 👤 Authentication & Users
+- Secure Login / Registration
+- Session management
+- Profile management
+- Role-based accounts
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 🏢 Property Management
+- Add / Edit / Delete properties
+- Property images
+- Property types
+- Regions / locations
+- Featured listings
 
-## Code of Conduct
+### 🤝 Client & Agent System
+- Manage clients
+- Manage agents
+- Internal activity structure
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 💰 Offers & Transactions
+- Submit offers
+- Offer history
+- Transaction records
 
-## Security Vulnerabilities
+### 📅 Scheduling
+- Book property viewings
+- Manage appointments
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 📬 Communication
+- Contact inquiries from users
+- Admin message management
 
-## License
+### 📊 Admin Tools
+- Reports
+- Audit logs
+- Dashboard controls
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 📱 Responsive Design
+- Mobile-friendly interface
+- Burger menu navigation
+- Optimized layouts
+
+---
+
+## 🛠 Tech Stack
+
+| Technology | Usage |
+|-----------|------|
+| Laravel 12 | Backend Framework |
+| PHP 8.2 | Server Language |
+| PostgreSQL | Production Database |
+| MySQL | Local Development |
+| Blade | Templating Engine |
+| Tailwind CSS | Styling |
+| Alpine.js | Interactive UI |
+| Docker | Containerized Deployment |
+| Render | Cloud Hosting |
+
+---
+
+## 📸 Screenshots
+
+## Homepage
+```md
+Add image here:
+![Homepage](screenshots/homepage.png)
