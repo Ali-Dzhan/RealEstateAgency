@@ -6,7 +6,7 @@
 
         {{-- Background --}}
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=2000"
+            <img src="https://preview.free3d.com/img/2016/05/1857415396756293353/8ehr9es4.jpg"
                  class="w-full h-full object-cover scale-105 opacity-50"
                  alt="Modern Real Estate">
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/80"></div>
