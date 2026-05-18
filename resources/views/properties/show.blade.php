@@ -136,7 +136,7 @@
                     <div class="sticky top-8 space-y-6">
 
                         {{-- Booking Card --}}
-                        <div class="bg-white rounded-3xl p-8 shadow-xl border border-blue-50 ring-4 ring-blue-50/50">
+                        <div class="bg-white rounded-3xl p-8 border-blue-50 ring-4 ring-blue-50/50">
                             <h3 class="text-xl font-bold text-slate-900 mb-2">Schedule a Tour</h3>
                             <p class="text-slate-500 text-sm mb-6">Choose your preferred date and we'll confirm within 24h.</p>
 
@@ -145,10 +145,25 @@
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
 
                                 <div>
-                                    <label class="text-xs font-black uppercase text-slate-400 mb-2 block">Visit Date & Time</label>
+                                    <label class="text-xs font-black uppercase text-slate-400 mb-2 block">
+                                        Visit Date & Time
+                                    </label>
+
                                     <input type="datetime-local" name="scheduled_on"
-                                           class="w-full rounded-2xl border-slate-200 bg-slate-50 p-4 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all"
-                                           required @unless(auth()->check() && auth()->user()->role === 'client') disabled @endunless>
+                                           class="w-full rounded-2xl border-slate-200 bg-slate-50 p-4"
+                                           required>
+
+                                    @if(session('success'))
+                                        <div class="bg-green-100 border border-green-300 text-green-700 p-3 rounded-xl mb-4 mt-4">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
+                                    @error('scheduled_on')
+                                    <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded-xl mb-4 mt-4">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
 
                                 <button type="submit"
