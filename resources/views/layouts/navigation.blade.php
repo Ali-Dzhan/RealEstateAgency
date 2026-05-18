@@ -4,7 +4,9 @@
         <div class="flex justify-between items-center h-16">
 
             <a href="{{ route('home') }}" class="flex items-center text-2xl font-bold text-blue-700">
-                🏠 <span class="ml-1">RealEstate</span>
+                <img src="{{ asset('images/real_estate_logo_transparent.png') }}"
+                     alt="Real Estate Logo"
+                     class="h-10 w-auto">
             </a>
 
             {{-- Desktop Menu --}}
