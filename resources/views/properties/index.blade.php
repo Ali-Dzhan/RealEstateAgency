@@ -2,7 +2,7 @@
 
 @section('fullwidth')
     {{-- Hero Section --}}
-    <section class="relative bg-gray-900 min-h-[55vh] flex items-center px-6 w-full overflow-hidden">
+    <section class="relative bg-gray-900 min-h-[70vh] flex items-center px-6 w-full overflow-hidden">
 
         {{-- Background --}}
         <div class="absolute inset-0">
@@ -83,13 +83,13 @@
     </section>
 
     {{-- Content Section --}}
-    <section class="bg-gray-50 pt-32 pb-20 px-6">
+    <section class="bg-gray-50 pt-20 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
             <div id="slider" class="splide">
                 <div class="splide__track">
                     <ul class="splide__list">
                         @foreach($properties as $property)
-                            <li class="splide__slide py-10">
+                            <li class="splide__slide py-4 md:py-8">
                                 <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 h-full flex flex-col">
                                     {{-- Image Wrapper --}}
                                     <div class="relative h-64 overflow-hidden">
